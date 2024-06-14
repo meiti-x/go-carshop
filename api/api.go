@@ -22,7 +22,7 @@ func InitServer() {
 	if ok {
 		val.RegisterValidation("isAdult", validations.IsAdult)
 	}
-	r.Use(gin.Logger(), gin.Recovery(), middlewares.TestMiddleware())
+	r.Use(gin.Logger(), gin.Recovery(), middlewares.TestMiddleware(), middlewares.RateLimitMiddleware())
 	api := r.Group("api/")
 
 	v1 := api.Group("/v1/")
