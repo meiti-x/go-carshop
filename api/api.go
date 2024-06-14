@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
+	"github.com/meiti-x/golang-web-api/api/middlewares"
 	"github.com/meiti-x/golang-web-api/api/routers"
 	"github.com/meiti-x/golang-web-api/api/validations"
 	"github.com/meiti-x/golang-web-api/config"
@@ -21,7 +22,7 @@ func InitServer() {
 	if ok {
 		val.RegisterValidation("isAdult", validations.IsAdult)
 	}
-	r.Use(gin.Logger(), gin.Recovery())
+	r.Use(gin.Logger(), gin.Recovery(), middlewares.TestMiddleware())
 	api := r.Group("api/")
 
 	v1 := api.Group("/v1/")

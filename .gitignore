@@ -1,3 +1,4 @@
 *.log
+cmd/__debug*
 
 .vscode
