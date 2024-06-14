@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/meiti-x/golang-web-api/api/helper"
 )
 
 type TestHandler struct {
@@ -15,9 +16,7 @@ func NewTestHandler() *TestHandler {
 }
 
 func (h *TestHandler) Test(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"result": "Test",
-	})
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse("http.StatusOK", true, http.StatusOK ))
 }
 
 type Headers struct {
@@ -26,18 +25,14 @@ type Headers struct {
 
 func (h *TestHandler) TestUser(c *gin.Context) {
 	id := c.Param("id")
-	c.JSON(http.StatusOK, gin.H{
-		"result": id,
-	})
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse(id, true, http.StatusOK ))
 }
 
 func (h *TestHandler) TestUsers(c *gin.Context) {
 	id := c.Query("id")
 	names := c.QueryArray("names")
 	if id == "" {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"err": "empty id",
-		})
+		c.JSON(http.StatusBadRequest, helper.GenerateBaseResponseWithError("http.StatusNotOK", false, http.StatusBadRequest, fmt.Errorf("id is required")))))
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"result": id,
@@ -63,9 +58,7 @@ func (h *TestHandler) TestBody(c *gin.Context) {
 	p := PersonData{}
 	err := c.Bind(&p)
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
+		c.AbortWithStatusJSON(http.StatusBadRequest,helper.GenerateBaseResponseWithValidtionError("http.StatusOK", true, http.StatusOK, err ))
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
@@ -77,9 +70,7 @@ func (h *TestHandler) TestFile(c *gin.Context) {
 	file, _ := c.FormFile("file")
 	err := c.SaveUploadedFile(file, "file")
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			"error": err,
-		})
+		c.AbortWithStatusJSON(http.StatusBadRequest, helper.GenerateBaseResponseWithError(nil, true, http.StatusBadRequest,err ))
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
