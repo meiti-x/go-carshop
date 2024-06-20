@@ -1,6 +1,8 @@
 package cache
 
 import (
+	"fmt"
+	"log"
 	"time"
 
 	"github.com/go-redis/redis/v7"
@@ -11,27 +13,28 @@ var redisClient *redis.Client
 
 func InitRedis(cfg *config.Config) {
 	redisClient = redis.NewClient(&redis.Options{
-		Addr:         cfg.Redis.Host + ":" + cfg.Redis.Port,
-		Password:     cfg.Redis.Password,
-		DB:           0,
-		DialTimeout:  cfg.Redis.DialTimeout,
-		ReadTimeout:  cfg.Redis.ReadTimeout,
-		WriteTimeout: cfg.Redis.WriteTimeout,
-		PoolSize:     cfg.Redis.PoolSize,
-		PoolTimeout:  cfg.Redis.PoolTimeout,
-		IdleTimeout:  cfg.Redis.IdleCheckFrequency * time.Millisecond,
+		Addr:               fmt.Sprintf("%s:%s", cfg.Redis.Host, cfg.Redis.Port),
+		Password:           cfg.Redis.Password,
+		DB:                 0,
+		DialTimeout:        cfg.Redis.DialTimeout * time.Second,
+		ReadTimeout:        cfg.Redis.ReadTimeout * time.Second,
+		WriteTimeout:       cfg.Redis.WriteTimeout * time.Second,
+		PoolSize:           cfg.Redis.PoolSize,
+		PoolTimeout:        cfg.Redis.PoolTimeout,
+		IdleTimeout:        500 * time.Millisecond,
+		IdleCheckFrequency: cfg.Redis.IdleCheckFrequency * time.Millisecond,
 	})
+
 	_, err := redisClient.Ping().Result()
 	if err != nil {
-		panic(err)
+		log.Print(err)
 	}
-
 }
 
-func GetRedisClient() *redis.Client {
+func GetRedis() *redis.Client {
 	return redisClient
 }
 
-func CloseRedisClient() {
+func CloseRedis() {
 	redisClient.Close()
 }

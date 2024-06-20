@@ -1,5 +1,4 @@
-version: '3'
-
+version: "3"
 
 services:
   postgres:
@@ -17,12 +16,11 @@ services:
     networks:
       - webapi_network
     restart: unless-stopped
-  
 
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin_container
-    environment: 
+    environment:
       PGADMIN_DEFAULT_EMAIL: mahdimomeni6@gmail.com
       PGADMIN_DEFAULT_PASSWORD: 123456
     volumes:
@@ -34,31 +32,23 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
-  
 
   redis:
     image: redis:latest
     container_name: redis_container
-    command: [ "redis-server", "/etc/redis/redis.conf" ]
-    volumes: 
+    command: ["redis-server", "/etc/redis/redis.conf"]
+    volumes:
       - ./redis.conf:/etc/redis/redis.conf
       - redis:/etc/redis.conf
       - redis:/data
     ports:
       - "6379:6379"
-    networks:
-      - webapi_network
-       
-      
-
-  
 
 volumes:
- postgres:
- pgadmin:
- redis:
- log:
-
+  postgres:
+  pgadmin:
+  redis:
+  log:
 
 networks:
   webapi_network:
