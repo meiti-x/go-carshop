@@ -7,6 +7,9 @@ import (
 	"github.com/meiti-x/golang-web-api/data/db"
 )
 
+// @securityDefinitions.apikey AuthBearer
+// @in header
+// @name Authorization
 func main() {
 	cfg := config.GetConfig()
 	err := cache.InitRedis(cfg)

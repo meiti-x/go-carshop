@@ -28,6 +28,15 @@ func (h *TestHandler) TestUser(c *gin.Context) {
 	c.JSON(http.StatusOK, helper.GenerateBaseResponse(id, true, http.StatusOK))
 }
 
+// TestUsers lists all existing accounts
+//
+//	@Summary      List accounts
+//	@Description  get accounts
+//	@Tags         users
+//	@Accept       json
+//	@Produce      json
+//	@Param        q    query     string  false  "name search by q"  Format(email)
+//	@Router       /accounts [get]
 func (h *TestHandler) TestUsers(c *gin.Context) {
 	id := c.Query("id")
 	names := c.QueryArray("names")
