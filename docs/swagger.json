@@ -62,10 +62,10 @@
             "get": {
                 "security": [
                     {
-                        "Token": []
+                        "AuthBearer": []
                     }
                 ],
-                "description": "Health2 Check2",
+                "description": "Another Health Check",
                 "consumes": [
                     "application/json"
                 ],
@@ -75,7 +75,7 @@
                 "tags": [
                     "health"
                 ],
-                "summary": "Health2 Check2",
+                "summary": "Health Check2",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -132,7 +132,7 @@
         }
     },
     "securityDefinitions": {
-        "Token": {
+        "AuthBearer": {
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"

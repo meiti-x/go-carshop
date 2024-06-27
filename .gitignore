@@ -1,5 +1,4 @@
 *.log
 cmd/__debug*
 
-.vscode
 .DS_Store

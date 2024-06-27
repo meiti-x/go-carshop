@@ -73,10 +73,10 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "Token": []
+                        "AuthBearer": []
                     }
                 ],
-                "description": "Health2 Check2",
+                "description": "Another Health Check",
                 "consumes": [
                     "application/json"
                 ],
@@ -86,7 +86,7 @@ const docTemplate = `{
                 "tags": [
                     "health"
                 ],
-                "summary": "Health2 Check2",
+                "summary": "Health Check2",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -143,7 +143,7 @@ const docTemplate = `{
         }
     },
     "securityDefinitions": {
-        "Token": {
+        "AuthBearer": {
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"

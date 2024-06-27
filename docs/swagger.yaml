@@ -66,7 +66,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Health2 Check2
+      description: Another Health Check
       produces:
       - application/json
       responses:
@@ -79,12 +79,12 @@ paths:
           schema:
             $ref: '#/definitions/helper.BaseHttpResponse'
       security:
-      - Token: []
-      summary: Health2 Check2
+      - AuthBearer: []
+      summary: Health Check2
       tags:
       - health
 securityDefinitions:
-  Token:
+  AuthBearer:
     in: header
     name: Authorization
     type: apiKey
